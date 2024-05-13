@@ -23,7 +23,7 @@ Vẽ biểu đồ với thông tin lấy từ weatherapi và post json qua fasta
 Nếu có bất kỳ vấn đề hoặc yêu cầu nâng cấp, vui lòng tạo một issue mới trong repository này.
 
 ## Tác Giả
-- Họ và Tên: [Your Name](https://github.com/D-makaeenm)
+- Họ và Tên: [D-makaeenm](https://github.com/D-makaeenm)
 - Email: k2005480106010@tnut.edu.vn
 
 ## Giấy Phép
