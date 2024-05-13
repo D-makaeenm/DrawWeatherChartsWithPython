@@ -15,3 +15,18 @@
 label{
     margin: 10px;
 }
+
+#update_db{
+    margin: 10px;
+    border-radius: 15px;
+    padding: 5px;
+    background-color: rgb(32, 37, 94);
+    color: #fff;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    width: auto;
+    max-width: fit-content;
+}
+#update_db:hover{
+    background-color: rgb(52, 56, 101);
+}

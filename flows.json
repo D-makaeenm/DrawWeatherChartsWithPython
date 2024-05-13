@@ -1,0 +1,282 @@
+[
+    {
+        "id": "6c7d92ecb4d70fba",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "abb046ec7755ec4f",
+        "type": "inject",
+        "z": "6c7d92ecb4d70fba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 460,
+        "wires": [
+            [
+                "8d567fc254ee24e3"
+            ]
+        ]
+    },
+    {
+        "id": "8d567fc254ee24e3",
+        "type": "http request",
+        "z": "6c7d92ecb4d70fba",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8000/weather",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 450,
+        "y": 460,
+        "wires": [
+            [
+                "8d157b265e4afecf"
+            ]
+        ]
+    },
+    {
+        "id": "c6dcfa1611101514",
+        "type": "http in",
+        "z": "6c7d92ecb4d70fba",
+        "name": "/get-weather-data",
+        "url": "/get-temp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 320,
+        "y": 580,
+        "wires": [
+            [
+                "9d1e625588cd6980"
+            ]
+        ]
+    },
+    {
+        "id": "9ed7bec2111dbe54",
+        "type": "http response",
+        "z": "6c7d92ecb4d70fba",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 800,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9d1e625588cd6980",
+        "type": "MSSQL",
+        "z": "6c7d92ecb4d70fba",
+        "mssqlCN": "0a9e607d3e6ecf26",
+        "name": "get temp",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "select Date, Temperature from thoi_tiet",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "editor",
+        "paramsOpt": "queryParams",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 540,
+        "y": 580,
+        "wires": [
+            [
+                "9ed7bec2111dbe54"
+            ]
+        ]
+    },
+    {
+        "id": "8d157b265e4afecf",
+        "type": "json",
+        "z": "6c7d92ecb4d70fba",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 650,
+        "y": 460,
+        "wires": [
+            [
+                "18c60c93d2d5696c"
+            ]
+        ]
+    },
+    {
+        "id": "18c60c93d2d5696c",
+        "type": "debug",
+        "z": "6c7d92ecb4d70fba",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "dba8d27b4745981b",
+        "type": "http in",
+        "z": "6c7d92ecb4d70fba",
+        "name": "/get-weather-data",
+        "url": "/get-press",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 320,
+        "y": 700,
+        "wires": [
+            [
+                "8db7e96500e0f9b7"
+            ]
+        ]
+    },
+    {
+        "id": "11c6af2703a008f5",
+        "type": "http in",
+        "z": "6c7d92ecb4d70fba",
+        "name": "/get-weather-data",
+        "url": "/get-humi",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 320,
+        "y": 640,
+        "wires": [
+            [
+                "6b9f8e55cb97c159"
+            ]
+        ]
+    },
+    {
+        "id": "8db7e96500e0f9b7",
+        "type": "MSSQL",
+        "z": "6c7d92ecb4d70fba",
+        "mssqlCN": "0a9e607d3e6ecf26",
+        "name": "get press",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "select Date, Pressure from thoi_tiet",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "editor",
+        "paramsOpt": "queryParams",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 540,
+        "y": 700,
+        "wires": [
+            [
+                "e30a65eb95d43173"
+            ]
+        ]
+    },
+    {
+        "id": "6b9f8e55cb97c159",
+        "type": "MSSQL",
+        "z": "6c7d92ecb4d70fba",
+        "mssqlCN": "0a9e607d3e6ecf26",
+        "name": "get humi",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "select Date, Humidity from thoi_tiet",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "editor",
+        "paramsOpt": "queryParams",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 540,
+        "y": 640,
+        "wires": [
+            [
+                "d81d24d48978c3d1"
+            ]
+        ]
+    },
+    {
+        "id": "e30a65eb95d43173",
+        "type": "http response",
+        "z": "6c7d92ecb4d70fba",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 800,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "d81d24d48978c3d1",
+        "type": "http response",
+        "z": "6c7d92ecb4d70fba",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 800,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "0a9e607d3e6ecf26",
+        "type": "MSSQL-CN",
+        "tdsVersion": "7_4",
+        "name": "SQLServer",
+        "server": "DUYVPRO",
+        "port": "1433",
+        "encyption": true,
+        "trustServerCertificate": true,
+        "database": "thaycop",
+        "useUTC": true,
+        "connectTimeout": "15000",
+        "requestTimeout": "15000",
+        "cancelTimeout": "5000",
+        "pool": "5",
+        "parseJSON": false,
+        "enableArithAbort": true,
+        "readOnlyIntent": false
+    }
+]

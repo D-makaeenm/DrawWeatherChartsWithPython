@@ -1,50 +1,100 @@
-
-// Load thư viện Google Charts
+// Hàm để tải dữ liệu từ URL JSON
 google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawCharts);
+function drawCharts() {
+    drawTemperatureChart();
+    drawHumidityChart();
+    drawPressureChart();
+}
+function loadData(url, callback) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => callback(data))
+        .catch(error => console.error('Error loading data:', error));
+}
 
-// Khi nút "Get Weather Data" được nhấn
-$(document).ready(function() {
-    $(".btn_save").click(function() {
-        // Gọi hàm để lấy dữ liệu từ cơ sở dữ liệu và vẽ biểu đồ
-        getWeatherDataAndDrawChart();
-    });
-});
+// Hàm để vẽ biểu đồ nhiệt độ
+function drawTemperatureChart() {
+    loadData('http://127.0.0.1:1880/get-temp', function(data) {
+        // Tạo mảng dữ liệu cho biểu đồ
+        var chartData = [];
+        chartData.push(['Date', 'Temperature']); // Thêm tiêu đề cột
 
-// Hàm để lấy dữ liệu từ cơ sở dữ liệu và vẽ biểu đồ
-function getWeatherDataAndDrawChart() {
-    // Gọi AJAX để lấy dữ liệu từ cơ sở dữ liệu
-    $.ajax({
-        url: "api/get_weather_data",  // Địa chỉ API để lấy dữ liệu thời tiết
-        type: "GET",
-        success: function(data) {
-            // Sau khi nhận được dữ liệu, vẽ biểu đồ
-            drawChart(data);
-        },
-        error: function() {
-            // Xử lý lỗi nếu có
-            alert("Error occurred while fetching weather data!");
-        }
+        // Lặp qua dữ liệu JSON và thêm vào mảng dữ liệu
+        data.forEach(function(entry) {
+            chartData.push([new Date(entry.Date), entry.Temperature]);
+        });
+
+        // Tạo DataTable từ mảng dữ liệu
+        var dataTable = google.visualization.arrayToDataTable(chartData);
+
+        // Cấu hình tùy chọn cho biểu đồ
+        var options = {
+            title: 'Temperature Chart',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        // Vẽ biểu đồ
+        var chart = new google.visualization.LineChart(document.getElementById('temperature_chart'));
+        chart.draw(dataTable, options);
     });
 }
 
-// Hàm để vẽ biểu đồ
-function drawChart(weatherData) {
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Date');
-    data.addColumn('number', 'Temperature (°C)');
+// Hàm để vẽ biểu đồ độ ẩm
+// Hàm để vẽ biểu đồ độ ẩm
+function drawHumidityChart() {
+    loadData('http://127.0.0.1:1880/get-humi', function(data) {
+        // Tạo mảng dữ liệu cho biểu đồ
+        var chartData = [];
+        chartData.push(['Time', 'Humidity']); // Thêm tiêu đề cột
 
-    // Thêm dữ liệu từ weatherData vào biểu đồ
-    for (var i = 0; i < weatherData.length; i++) {
-        data.addRow([weatherData[i].Date, weatherData[i]['Temperature (°C)']]);
-    }
+        // Lặp qua dữ liệu JSON và thêm vào mảng dữ liệu
+        data.forEach(function(entry) {
+            chartData.push([new Date(entry.Date), entry.Humidity]);
+        });
 
-    var options = {
-        title: 'Temperature Forecast',
-        curveType: 'function',
-        legend: { position: 'bottom' }
-    };
+        // Tạo DataTable từ mảng dữ liệu
+        var dataTable = google.visualization.arrayToDataTable(chartData);
 
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        // Cấu hình tùy chọn cho biểu đồ
+        var options = {
+            title: 'Humidity Chart',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
 
-    chart.draw(data, options);
+        // Vẽ biểu đồ
+        var chart = new google.visualization.LineChart(document.getElementById('humidity_chart'));
+        chart.draw(dataTable, options);
+    });
 }
+
+// Hàm để vẽ biểu đồ áp suất
+function drawPressureChart() {
+    loadData('http://127.0.0.1:1880/get-press', function(data) {
+        // Tạo mảng dữ liệu cho biểu đồ
+        var chartData = [];
+        chartData.push(['Time', 'Pressure']); // Thêm tiêu đề cột
+
+        // Lặp qua dữ liệu JSON và thêm vào mảng dữ liệu
+        data.forEach(function(entry) {
+            chartData.push([new Date(entry.Date), entry.Pressure]);
+        });
+
+        // Tạo DataTable từ mảng dữ liệu
+        var dataTable = google.visualization.arrayToDataTable(chartData);
+
+        // Cấu hình tùy chọn cho biểu đồ
+        var options = {
+            title: 'Pressure Chart',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        // Vẽ biểu đồ
+        var chart = new google.visualization.LineChart(document.getElementById('pressure_chart'));
+        chart.draw(dataTable, options);
+    });
+}
+

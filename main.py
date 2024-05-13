@@ -35,8 +35,8 @@ async def get_weather_data():
         past_date = today - timedelta(days=days)
         return past_date.strftime("%Y-%m-%d")
 
-    city = "Thai Nguyen"  # Thay đổi thành tên thành phố bạn quan tâm
-    api_key = "093bc10f5336f52a5c3c761e7b731280"  # Thay YOUR_API_KEY bằng API key của bạn từ OpenWeatherMap
+    city = "Thai Nguyen"
+    api_key = "093bc10f5336f52a5c3c761e7b731280" 
     past_date = get_past_date(7)  # Lấy dữ liệu 1 tuần trước
 
     weather_data = get_weather_data(city, api_key, past_date)
