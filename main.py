@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
-@app.get("/weather")
+@app.get("/weather") #endopoint
 async def get_weather_data():
     # Đoạn mã lấy dữ liệu thời tiết
     import requests

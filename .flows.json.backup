@@ -108,6 +108,32 @@
         "wires": []
     },
     {
+        "id": "9d1e625588cd6980",
+        "type": "MSSQL",
+        "z": "6c7d92ecb4d70fba",
+        "mssqlCN": "0a9e607d3e6ecf26",
+        "name": "get temp",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "select Date, Temperature from thoi_tiet",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "editor",
+        "paramsOpt": "queryParams",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 460,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "8d157b265e4afecf",
         "type": "json",
         "z": "6c7d92ecb4d70fba",
@@ -133,11 +159,11 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 120,
-        "y": 740,
+        "x": 220,
+        "y": 820,
         "wires": [
             [
-                "9c0ab16148bf297f"
+                "8db7e96500e0f9b7"
             ]
         ]
     },
@@ -150,11 +176,67 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 120,
-        "y": 680,
+        "x": 220,
+        "y": 760,
         "wires": [
             [
-                "dec8f34b6c02fdf3"
+                "6b9f8e55cb97c159"
+            ]
+        ]
+    },
+    {
+        "id": "8db7e96500e0f9b7",
+        "type": "MSSQL",
+        "z": "6c7d92ecb4d70fba",
+        "mssqlCN": "0a9e607d3e6ecf26",
+        "name": "get press",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "select Date, Pressure from thoi_tiet",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "editor",
+        "paramsOpt": "queryParams",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 460,
+        "y": 820,
+        "wires": [
+            [
+                "e30a65eb95d43173"
+            ]
+        ]
+    },
+    {
+        "id": "6b9f8e55cb97c159",
+        "type": "MSSQL",
+        "z": "6c7d92ecb4d70fba",
+        "mssqlCN": "0a9e607d3e6ecf26",
+        "name": "get humi",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "select Date, Humidity from thoi_tiet",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "editor",
+        "paramsOpt": "queryParams",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 460,
+        "y": 760,
+        "wires": [
+            [
+                "d81d24d48978c3d1"
             ]
         ]
     },
@@ -165,8 +247,8 @@
         "name": "",
         "statusCode": "200",
         "headers": {},
-        "x": 780,
-        "y": 740,
+        "x": 720,
+        "y": 820,
         "wires": []
     },
     {
@@ -176,8 +258,8 @@
         "name": "",
         "statusCode": "200",
         "headers": {},
-        "x": 780,
-        "y": 680,
+        "x": 720,
+        "y": 760,
         "wires": []
     },
     {
@@ -283,94 +365,6 @@
         "wires": [
             [
                 "9ed7bec2111dbe54"
-            ]
-        ]
-    },
-    {
-        "id": "e6d684c845ae8d3e",
-        "type": "function",
-        "z": "6c7d92ecb4d70fba",
-        "name": "function 3",
-        "func": "// Chuyển đổi chuỗi JSON thành đối tượng JavaScript\nvar data = JSON.parse(msg.payload);\n\n// Lọc ra chỉ dữ liệu về nhiệt độ (Temperature) và ngày (Date)\nvar filteredData = data.map(function(item) {\n    return {\n        Humidity: item.Humidity,\n        Date: item.Date.date\n    };\n});\n\n// Gửi dữ liệu đã lọc tới đầu ra\nmsg.payload = filteredData;\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 540,
-        "y": 680,
-        "wires": [
-            [
-                "d81d24d48978c3d1"
-            ]
-        ]
-    },
-    {
-        "id": "17a1676ca6f8a426",
-        "type": "function",
-        "z": "6c7d92ecb4d70fba",
-        "name": "function 4",
-        "func": "// Chuyển đổi chuỗi JSON thành đối tượng JavaScript\nvar data = JSON.parse(msg.payload);\n\n// Lọc ra chỉ dữ liệu về nhiệt độ (Temperature) và ngày (Date)\nvar filteredData = data.map(function(item) {\n    return {\n        Pressure: item.Pressure,\n        Date: item.Date.date\n    };\n});\n\n// Gửi dữ liệu đã lọc tới đầu ra\nmsg.payload = filteredData;\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 540,
-        "y": 740,
-        "wires": [
-            [
-                "e30a65eb95d43173"
-            ]
-        ]
-    },
-    {
-        "id": "dec8f34b6c02fdf3",
-        "type": "http request",
-        "z": "6c7d92ecb4d70fba",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "http://localhost/thaycop/getdata.php",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 310,
-        "y": 680,
-        "wires": [
-            [
-                "e6d684c845ae8d3e"
-            ]
-        ]
-    },
-    {
-        "id": "9c0ab16148bf297f",
-        "type": "http request",
-        "z": "6c7d92ecb4d70fba",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "http://localhost/thaycop/getdata.php",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 310,
-        "y": 740,
-        "wires": [
-            [
-                "17a1676ca6f8a426"
             ]
         ]
     }
